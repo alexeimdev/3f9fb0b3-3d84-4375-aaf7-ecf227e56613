@@ -39,7 +39,9 @@ export default function Products() {
             <div className={styles.productDetailsWrapper}>
                 <ProductDetails
                     productForm={storeState.productForm} 
-                    onSubmit={() => dispatch(saveProduct())} />
+                    onSubmit={() => dispatch(saveProduct())}
+                    // more handles here
+                    />
             </div>
         </div>
     )
