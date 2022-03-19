@@ -26,10 +26,6 @@ export default function Products() {
         dispatch(deleteProduct(productId));
     }
 
-    function handleDeleteProduct(productId) {
-        dispatch(deleteProduct(productId));
-    }
-
     return (
         <div className={styles.container}>
             <div className={styles.productsListWrapper}>
