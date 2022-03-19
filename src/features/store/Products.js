@@ -26,6 +26,10 @@ export default function Products() {
         dispatch(deleteProduct(productId));
     }
 
+    function handleDeleteProduct(productId) {
+        dispatch(deleteProduct(productId));
+    }
+
     return (
         <div className={styles.container}>
             <div className={styles.productsListWrapper}>
@@ -33,7 +37,9 @@ export default function Products() {
                 <ProductsList products={storeState.products} onDeleteProduct={handleDeleteProduct} />
             </div>
             <div className={styles.productDetailsWrapper}>
-                <ProductDetails productForm={storeState.productForm} />
+                <ProductDetails
+                    productForm={storeState.productForm} 
+                    onSubmit={() => dispatch(saveProduct())} />
             </div>
         </div>
     )
