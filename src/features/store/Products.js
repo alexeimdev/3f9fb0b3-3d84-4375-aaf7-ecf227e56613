@@ -6,9 +6,12 @@ import ProductDetails from './ProductDetails';
 import {
     addProduct,
     deleteProduct,
-    editProduct,
-} from '../store/storeSlide' 
-
+    saveProduct,
+    setProductName,
+    setProductDescription,
+    setProductPrice,
+    setSelectedProduct,
+} from '../store/storeSlide'
 
 export default function Products() {
 
@@ -16,7 +19,7 @@ export default function Products() {
     const storeState = useSelector(state => state.store);
 
     function handleAddProduct() {
-
+        dispatch(addProduct());
     }
 
     function handleDeleteProduct(productId) {
@@ -26,13 +29,13 @@ export default function Products() {
     return (
         <div className={styles.container}>
             <div className={styles.productsListWrapper}>
-                <ProductsList
-                    products={storeState.products}
-                    onDeleteProduct={handleDeleteProduct} />
+                <button onClick={handleAddProduct}>+ Add</button>
+                <ProductsList products={storeState.products} onDeleteProduct={handleDeleteProduct} />
             </div>
             <div className={styles.productDetailsWrapper}>
-                <ProductDetails />
+                <ProductDetails productForm={storeState.productForm} />
             </div>
         </div>
     )
+
 }
