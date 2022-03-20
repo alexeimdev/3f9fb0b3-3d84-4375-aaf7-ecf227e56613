@@ -53,12 +53,16 @@ export const storeSlice = createSlice({
                 state.productForm = initialProductForm;
             } else {
                 // new mode
-                console.log('state.productForm', state.productForm)
-                // TODO: check if not exists
-                state.productForm.id = nanoid();
-                state.productForm.creationDate = Date.now();
-                state.products.push(state.productForm);
-                state.productForm = initialProductForm;
+                const isProductNameExists = state.products.findIndex(product => product.name == state.productForm.name) > -1;
+                if (!isProductNameExists) {
+                    state.productForm.id = nanoid();
+                    state.productForm.creationDate = Date.now();
+                    state.products.push(state.productForm);
+                    state.productForm = initialProductForm;
+                } else {
+                    console.error('product name is already exists!');
+                }
+
             }
         },
         setProductName: (state, action) => {
