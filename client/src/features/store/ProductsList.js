@@ -7,12 +7,8 @@ import styles from './ProductsList.module.scss';
 export default function ProductsList(props) {
 
     const dispatch = useDispatch();
-    const storeState = useSelector(state => state.store);
+    const products = useSelector(state => state.store.products);
     
-    useEffect(() => {
-        // TODO: check if the products refresh where changed (useSelector)
-    }, [storeState?.products])
-
     function handleDeleteProduct(productId) {
         dispatch(deleteProduct(productId));
     }
@@ -24,7 +20,7 @@ export default function ProductsList(props) {
     return (
         <div className={styles.container}>
             <ul>
-                {storeState.products?.map(product => 
+                {products?.map(product => 
                     <ProductItem key={product.id}
                         product={product}
                         onEditProduct={handleEditProduct}

@@ -11,7 +11,7 @@ import styles from './ProductDetails.module.scss';
 export default function ProductDetails(props) {
 
     const dispatch = useDispatch();
-    const storeState = useSelector(state => state.store);
+    const productForm = useSelector(state => state.store?.productForm);
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -42,7 +42,7 @@ export default function ProductDetails(props) {
                             type="text"
                             maxLength={30}
                             required 
-                            value={storeState.productForm?.name}
+                            value={productForm?.name}
                             onChange={handleNameChange} />
                     </div>
                 </div>
@@ -55,7 +55,7 @@ export default function ProductDetails(props) {
                             maxLength={200}
                             rows={10}
                             cols={50}
-                            value={storeState.productForm?.description}
+                            value={productForm?.description}
                             onChange={handleDescriptionChange} />
                     </div>
                 </div>
@@ -68,7 +68,7 @@ export default function ProductDetails(props) {
                             type="number"
                             min={0}
                             required
-                            value={storeState.productForm?.price}
+                            value={productForm?.price}
                             onChange={handlePriceChange} />
                     </div>
                 </div>
