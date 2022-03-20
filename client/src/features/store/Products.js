@@ -8,7 +8,6 @@ import { addProduct } from './storeSlice';
 export default function Products(props) {
 
     const dispatch = useDispatch();
-    const storeState = useSelector(state => state.store);
 
     function handleAddProduct() {
         dispatch(addProduct());
