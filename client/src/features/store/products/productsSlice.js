@@ -26,8 +26,8 @@ const initialState = {
     productForm: initialProductForm,
 }
 
-export const storeSlice = createSlice({
-    name: 'store',
+export const productsSlice = createSlice({
+    name: 'products',
     initialState,
     reducers: {
         setProducts: (state, action) => {
@@ -86,6 +86,6 @@ export const {
     setProductName,
     setProductDescription,
     setProductPrice,
-} = storeSlice.actions;
+} = productsSlice.actions;
 
-export default storeSlice.reducer;
+export default productsSlice.reducer;

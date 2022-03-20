@@ -5,13 +5,13 @@ import {
     setProductName,
     setProductDescription,
     setProductPrice,
-} from './storeSlice';
+} from './productsSlice';
 import styles from './ProductDetails.module.scss';
 
 export default function ProductDetails(props) {
 
     const dispatch = useDispatch();
-    const productForm = useSelector(state => state.store?.productForm);
+    const productForm = useSelector(state => state.products?.productForm);
 
     function handleSubmit(e) {
         e.preventDefault();

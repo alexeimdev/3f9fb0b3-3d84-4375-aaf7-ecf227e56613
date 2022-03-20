@@ -1,13 +1,13 @@
 import React, {useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { editProduct, deleteProduct } from './storeSlice';
+import { editProduct, deleteProduct } from './productsSlice';
 import ProductItem from './ProductItem';
 import styles from './ProductsList.module.scss';
 
 export default function ProductsList(props) {
 
     const dispatch = useDispatch();
-    const products = useSelector(state => state.store.products);
+    const products = useSelector(state => state.products.products);
     
     function handleDeleteProduct(productId) {
         dispatch(deleteProduct(productId));

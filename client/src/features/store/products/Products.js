@@ -1,9 +1,9 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import styles from './Products.module.scss';
 import ProductsList from './ProductsList';
 import ProductDetails from './ProductDetails';
-import { addProduct } from './storeSlice';
+import { addProduct } from './productsSlice';
 
 export default function Products(props) {
 
