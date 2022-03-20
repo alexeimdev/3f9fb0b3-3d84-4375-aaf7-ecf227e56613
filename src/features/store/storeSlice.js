@@ -8,23 +8,21 @@ import { nanoid } from "nanoid";
 // Creation Date (Date, mandatory)
 
 const initialProducts = [
-    { id: nanoid(), name: 'aaa', description: 'aaa111', price: 100, creationDate: new Date() },
-    { id: nanoid(), name: 'bbb', description: 'bbb222', price: 200, creationDate: new Date() },
-    { id: nanoid(), name: 'ccc', description: 'ccc333', price: 300, creationDate: new Date() },
-    { id: nanoid(), name: 'ddd', description: 'ddd444', price: 400, creationDate: new Date() },
+    { id: nanoid(), name: 'aaa', description: 'aaa111', price: 100, creationDate: Date.now() },
+    { id: nanoid(), name: 'bbb', description: 'bbb222', price: 200, creationDate: Date.now() },
+    { id: nanoid(), name: 'ccc', description: 'ccc333', price: 300, creationDate: Date.now() },
+    { id: nanoid(), name: 'ddd', description: 'ddd444', price: 400, creationDate: Date.now() },
 ]
 
 const initialProductForm = {
     id: '',
     name: '',
     description: '',
-    price: NaN,
-    isValid: false,
+    price: '',
 }
 
 const initialState = {
     products: localStorage.getItem("storeDemoProducts") || initialProducts,
-    selectedProductId: '',
     productForm: initialProductForm,
 }
 
@@ -38,21 +36,29 @@ export const storeSlice = createSlice({
         addProduct: (state, action) => {
             state.productForm = initialProductForm;
         },
+        editProduct: (state, action) => {
+            const product = state.products.find(product => product.id === action.payload);
+            state.productForm = product;
+        },
         deleteProduct: (state, action) => {
             state.products = state.products.filter(product => product.id !== action.payload);
         },
         saveProduct: (state, action) => {
-
-            if (state.selectedProductId) {
+            if (state.productForm?.id) {
                 // edit mode
                 const products = state.products.map(product => {
-                    return product.id === action.payload.id ? action.payload : product;
+                    return product.id === state.productForm.id ? state.productForm : product;
                 });
                 state.products = [...products];
+                state.productForm = initialProductForm;
             } else {
                 // new mode
+                console.log('state.productForm', state.productForm)
+                // TODO: check if not exists
                 state.productForm.id = nanoid();
-                state.productForm.creationDate = new Date();
+                state.productForm.creationDate = Date.now();
+                state.products.push(state.productForm);
+                state.productForm = initialProductForm;
             }
         },
         setProductName: (state, action) => {
@@ -64,21 +70,18 @@ export const storeSlice = createSlice({
         setProductPrice: (state, action) => {
             state.productForm.price = action.payload;
         },
-        setSelectedProduct: (state, action) => {
-            state.selectedProductId = action.payload;
-        },
     }
 })
 
 export const {
     setProducts,
     addProduct,
+    editProduct,
     deleteProduct,
     saveProduct,
     setProductName,
     setProductDescription,
     setProductPrice,
-    setSelectedProduct,
 } = storeSlice.actions;
 
 export default storeSlice.reducer;

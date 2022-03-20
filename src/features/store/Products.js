@@ -3,17 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import styles from './Products.module.scss';
 import ProductsList from './ProductsList';
 import ProductDetails from './ProductDetails';
-import {
-    addProduct,
-    deleteProduct,
-    saveProduct,
-    setProductName,
-    setProductDescription,
-    setProductPrice,
-    setSelectedProduct,
-} from '../store/storeSlide'
+import { addProduct } from '../store/storeSlice';
 
-export default function Products() {
+export default function Products(props) {
 
     const dispatch = useDispatch();
     const storeState = useSelector(state => state.store);
@@ -21,25 +13,16 @@ export default function Products() {
     function handleAddProduct() {
         dispatch(addProduct());
     }
-
-    function handleDeleteProduct(productId) {
-        dispatch(deleteProduct(productId));
-    }
-
+    
     return (
         <div className={styles.container}>
             <div className={styles.productsListWrapper}>
-                <button onClick={handleAddProduct}>+ Add</button>
-                <ProductsList products={storeState.products} onDeleteProduct={handleDeleteProduct} />
+                <button onClick={handleAddProduct}> Add </button>
+                <ProductsList />
             </div>
             <div className={styles.productDetailsWrapper}>
-                <ProductDetails
-                    productForm={storeState.productForm} 
-                    onSubmit={() => dispatch(saveProduct())}
-                    // more handles here
-                    />
+                <ProductDetails />
             </div>
         </div>
     )
-
 }
