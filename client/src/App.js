@@ -5,6 +5,8 @@ import {
     Route
 } from 'react-router-dom';
 import { HomePage } from './pages/homePage';
+import { ProductsPage } from './pages/productsPage';
+import { TransactionsPage } from './pages/transactionsPage';
 
 function App() {
     return (
@@ -12,6 +14,12 @@ function App() {
             <Switch>
                 <Route path="/" exact>
                     <HomePage />
+                </Route>
+                <Route path="/products">
+                    <ProductsPage />
+                </Route>
+                <Route path="/transactions">
+                    <TransactionsPage />
                 </Route>
             </Switch>
         </Router>
