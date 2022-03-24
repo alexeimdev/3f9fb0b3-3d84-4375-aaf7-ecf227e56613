@@ -2,9 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { 
     saveTransaction,
-    setTransactionName,
-    setTransactionDescription,
-    setTransactionPrice,
+    setTransactionField,
 } from './transactionsSlice';
 import styles from './TransactionDetails.module.scss';
 
@@ -19,15 +17,7 @@ export default function TransactionDetails(props) {
     }
 
     function handleNameChange(e) {
-        dispatch(setTransactionName(e.target.value));
-    }
-
-    function handleDescriptionChange(e) {
-        dispatch(setTransactionDescription(e.target.value));
-    }
-
-    function handlePriceChange(e) {
-        dispatch(setTransactionPrice(e.target.value));
+        dispatch(setTransactionField(e.target.name, e.target.value));
     }
 
     return (
@@ -44,32 +34,6 @@ export default function TransactionDetails(props) {
                             required 
                             value={transactionForm?.name}
                             onChange={handleNameChange} />
-                    </div>
-                </div>
-                <div>
-                    <div>
-                        <label> Description </label>
-                    </div>
-                    <div>
-                        <textarea
-                            maxLength={200}
-                            rows={10}
-                            cols={50}
-                            value={transactionForm?.description}
-                            onChange={handleDescriptionChange} />
-                    </div>
-                </div>
-                <div>
-                    <div>
-                        <label> Price </label>
-                    </div>
-                    <div>
-                        <input
-                            type="number"
-                            min={0}
-                            required
-                            value={transactionForm?.price}
-                            onChange={handlePriceChange} />
                     </div>
                 </div>
                 <div className={styles.saveFormButtonWrapper}>

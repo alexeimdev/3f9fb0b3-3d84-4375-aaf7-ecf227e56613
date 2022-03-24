@@ -1,24 +1,38 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { nanoid } from "nanoid";
-
-// ID (number, unique)
-// Name (string, up to 30 characters, mandatory)
-// Description (string, up to 200 characters, optional)
-// Price (number, larger than zero, mandatory)
-// Creation Date (Date, mandatory)
 
 const initialTransactions = [
-    { id: nanoid(), name: 'aaa', description: 'aaa111', price: 100, creationDate: Date.now() },
-    { id: nanoid(), name: 'bbb', description: 'bbb222', price: 200, creationDate: Date.now() },
-    { id: nanoid(), name: 'ccc', description: 'ccc333', price: 300, creationDate: Date.now() },
-    { id: nanoid(), name: 'ddd', description: 'ddd444', price: 400, creationDate: Date.now() },
+    {
+        "_id": "12345",
+        "customer_id": "813-86-3131",
+        "first_name": "Benedikt",
+        "last_name": "Abberley",
+        "email": "babberley0@artisteer.com",
+        "gender": "Male",
+        "country": "Nicaragua",
+        "city": "San Jorge",
+        "street": "415 Green Lane",
+        "phone": "887-564-6105",
+        "total_price": "1329.12",
+        "currency": "NIO",
+        "cerdit_card_type": "mastercard",
+        "cerdit_card_number": "5010126046192324"
+    },
 ]
 
 const initialTransactionForm = {
-    id: '',
-    name: '',
-    description: '',
-    price: '',
+    _id: '',
+    customer_id: '',
+    first_name: '',
+    last_name: '',
+    gender: '',
+    country: '',
+    city: '',
+    street: '',
+    phone: '',
+    total_price: '',
+    currency: '',
+    cerdit_card_type: '',
+    cerdit_card_number: '',
 }
 
 const initialState = {
@@ -37,42 +51,29 @@ export const transactionsSlice = createSlice({
             state.transactionForm = initialTransactionForm;
         },
         editTransaction: (state, action) => {
-            const transaction = state.transactions.find(transaction => transaction.id === action.payload);
+            const transaction = state.transactions.find(transaction => transaction._id === action.payload);
             state.transactionForm = transaction;
         },
         deleteTransaction: (state, action) => {
-            state.transactions = state.transactions.filter(transaction => transaction.id !== action.payload);
+            state.transactions = state.transactions.filter(transaction => transaction._id !== action.payload);
         },
         saveTransaction: (state, action) => {
             if (state.transactionForm?.id) {
                 // edit mode
                 const transactions = state.transactions.map(transaction => {
-                    return transaction.id === state.transactionForm.id ? state.transactionForm : transaction;
+                    return transaction._id === state.transactionForm._id ? state.transactionForm : transaction;
                 });
                 state.transactions = [...transactions];
                 state.transactionForm = initialTransactionForm;
             } else {
                 // new mode
-                const isTransactionNameExists = state.transactions.findIndex(transaction => transaction.name == state.transactionForm.name) > -1;
-                if (!isTransactionNameExists) {
-                    state.transactionForm.id = nanoid();
-                    state.transactionForm.creationDate = Date.now();
-                    state.transactions.push(state.transactionForm);
-                    state.transactionForm = initialTransactionForm;
-                } else {
-                    console.error('transaction name is already exists!');
-                }
-
+                state.transactionForm.creationDate = Date.now();
+                state.transactions.push(state.transactionForm);
+                state.transactionForm = initialTransactionForm;
             }
         },
-        setTransactionName: (state, action) => {
-            state.transactionForm.name = action.payload;
-        },
-        setTransactionDescription: (state, action) => {
-            state.transactionForm.description = action.payload;
-        },
-        setTransactionPrice: (state, action) => {
-            state.transactionForm.price = action.payload;
+        setTransactionField: (state, action) => {
+            state.transactionForm[action.payload.name] = action.payload.value;
         },
     }
 })
@@ -83,9 +84,7 @@ export const {
     editTransaction,
     deleteTransaction,
     saveTransaction,
-    setTransactionName,
-    setTransactionDescription,
-    setTransactionPrice,
+    setTransactionField,
 } = transactionsSlice.actions;
 
 export default transactionsSlice.reducer;

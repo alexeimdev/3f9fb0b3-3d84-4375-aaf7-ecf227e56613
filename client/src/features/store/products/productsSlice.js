@@ -22,7 +22,7 @@ const initialProductForm = {
 }
 
 const initialState = {
-    products: localStorage.getItem("storeDemoProducts") || initialProducts,
+    products: initialProducts,
     productForm: initialProductForm,
 }
 
